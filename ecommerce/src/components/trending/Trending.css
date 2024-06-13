@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+
+.product-album {
+    text-align: center; /* Center align all content */
+  }
+  .text-container {
+    margin-bottom: 20px; /* Add space between the text and product images */
+  }
+  
+  .trending-text, .check-out-text {
+    font-family: 'Oswald', sans-serif; /* Use Oswald font */
+    font-size: 20px; /* Adjust font size */
+    margin: 0; /* Remove default margins */
+    line-height: 1.5; /* Adjust line height */
+    font-size: 50px;
+  }
+  
+  .banner-image {
+    width: 100%; /* Make the banner span the entire width */
+    height: auto; /* Set the height of the banner */
+    object-fit: contain; /* Ensure the image fits within the specified height */
+    margin-bottom: 20px; /* Add some space between the banner and product photos */
+  }
+  
+
+  .product-image {
+    width: 30%; /* Adjust the width of product images as needed */
+    cursor: pointer;
+    position: relative; /* Ensure proper positioning */
+  }
+  
+  .product-images {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .product-image-wrapper {
+    position: relative;
+  }
+  
+  .product-image {
+    width: 100%; /* Adjust the width of product images as needed */
+    transition: transform 0.3s ease; /* Add transition effect for brightness */
+  }
+  
+  .product-image:hover {
+    filter: brightness(70%); /* Reduce brightness on hover */
+    transform: scale(1.1);
+    z-index: 1; /* Ensure the hovered image is on top of others */
+  }
+  .product-image:not(:hover) {
+    z-index: 0; /* Ensure non-hovered images are below the hovered image */
+  }
+  
+  .buy-now-overlay {
+    position: absolute;
+    cursor: pointer;
+    top: 50%;
+    left: 50%;
+    font-family: 'Oswald', sans-serif;
+    font-size: 30px;
+    transform: translate(-50%, -50%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    opacity: 0; /* Initially hide the overlay */
+    transition: opacity 0.3s ease; /* Add transition effect */
+    z-index: 2; /* Ensure the overlay is above the product images */
+  }
+  
+  .product-image-wrapper:hover .buy-now-overlay {
+    opacity: 1; /* Show the overlay on hover */
+  }
+  
+  .banner-container {
+    text-align: center;
+  }
+  
+  .shoe-image {
+    max-width: 100%;
+    height: auto;
+    cursor: pointer;
+    border-radius: 15px;
+    transition: transform 0.3s ease; /* Add transition effect */
+    
+  }
+  .shoe-image:hover {
+    transform: scale(1.1); /* Increase the size of the shoe image on hover */
+    
+  }
+  

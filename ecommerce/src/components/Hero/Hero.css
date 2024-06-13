@@ -1,0 +1,70 @@
+.hero {
+  position: relative;
+}
+
+.hero-video {
+  width: 100%;
+  transform: translateY(-8.5%);
+}
+
+.hero-content {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.titles {
+  margin-bottom: 20px;
+  transform: translateY(-330.5%);
+}
+
+.title {
+  font-size: 2.5em;
+  color: #fff; /* Change color as needed */
+  background-color: #31302f;
+  opacity: 50%;
+  padding: 0% 1000px; 
+  
+}
+
+.subtitle {
+  font-size: 1.8em;
+  color: #fff; /* Change color as needed */
+  background-color: #31302f;
+  padding: 0% 0px;
+  opacity: 50%;
+}
+
+.shop-now-button-container {
+  
+  text-align: center;
+}
+
+.shop-now-button {
+  background-color: transparent; /* Change color as needed */
+  color: rgb(255, 255, 255);
+  font-size: 1.5em;
+  padding: 10px 100px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  transform: translateY(-1500.5%);
+}
+
+.shop-now-button:hover {
+  background-color: #3a3b3d; /* Change hover color as needed */
+  opacity: 50%;
+}
+
+.shop-now-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+
+
+  

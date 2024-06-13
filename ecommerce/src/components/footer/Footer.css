@@ -1,0 +1,104 @@
+/* Ensure the body and html take full height */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* The main container for your content and footer */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Ensure that the main content takes available space and pushes the footer to the bottom */
+main {
+    flex: 1;
+}
+
+/* Footer Wrapper Styles */
+.Footer {
+    background-color: rgb(255, 255, 255);
+    padding: 40px 20px;
+    text-align: center;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #ddd;
+    transform: translateY(0); /* Remove the transform property */
+}
+
+.footerlogo img {
+    max-width: 200px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.footer-links li {
+    font-size: 1rem;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.footer-links li:hover {
+    color: #4CAF50;
+}
+
+.footer-social-icon {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.footer-icons-container {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    transition: border-color 0.3s ease;
+}
+
+.footer-icons-container img {
+    width: 24px;
+    height: 24px;
+}
+
+.footer-icons-container:hover {
+    border-color: #4CAF50;
+}
+
+.footer-copyright {
+    margin-top: 20px;
+    color: #666;
+}
+
+.footer-copyright hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+
+@media (max-width: 600px) {
+    .footer-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .footer-social-icon {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

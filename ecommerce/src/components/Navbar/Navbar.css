@@ -1,0 +1,170 @@
+.cart-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .Navbar {
+    display: flex;
+    
+    justify-content: space-around;
+    padding: 16px;
+    
+    
+    margin-top: -5%;
+   
+}
+
+
+
+.nav-menu {
+    
+    display: flex; 
+    
+    align-items: center;
+    list-style: none;
+    gap: 50px;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    
+    
+
+  }
+  
+.nav-menu li {
+  
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       justify-content: center;
+       gap: 3;
+       cursor: pointer;
+  }
+
+  .nav-logo{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+
+.nav-menu-item {
+    display: inline-block;
+    margin-right: 20px; /* Adjust as needed */
+    position: relative; /* Required for positioning the line */
+  }
+
+.nav-menu-item::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: red;
+    position: absolute;
+    bottom: -5px; /* Adjust the distance of the line from the text */
+    left: 0;
+    transition: width 0.3s; /* Smooth transition for the line */
+  }
+.nav-menu-item:hover::after {
+    width: 100%; /* Display the line fully on hover */
+  }
+
+.nav-login-cart{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 20px;
+    
+
+}
+.nav-menu-item a {
+    color: #000000; /* Change to your desired link color */
+    text-decoration: none; /* Remove underline */
+  }
+  
+  /* Change link color on hover */
+  .nav-menu-item a:hover {
+    color: #000000; /* Change to your desired link hover color */
+  }
+.nav-login-cart button{
+    width: 157px;
+    outline: none;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    cursor: pointer;
+}
+.nav-menu-item,
+button,
+.cart-icon {
+  cursor: pointer; /* Show pointer cursor on hover */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
+.nav-menu-item:hover,
+button:hover,
+.cart-icon:hover {
+  /* Add hover effects here */
+}
+
+.nav-menu-item:active,
+button:active,
+.cart-icon:active {
+  /* Add press effect styles here, for example: */
+  background-color: transparent; /* Change background color */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Add box shadow */
+}
+
+.nav-cart-count {
+   width: 22px;
+   height: 22px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-top: -35px;
+   margin-left: -55px;
+   border-radius: 11px;
+   font-size: 14px;
+   background: rgb(37, 82, 167);
+   color: rgb(255, 255, 255);
+  }
+
+  .popup {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    width: 270px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 999;
+    text-align: justify;
+    font-size: 20px;
+    font-family: "Bitter", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    border-radius: 5px;
+  }
+  
+  .popup ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .popup li {
+    padding: 5px 0;
+    cursor: pointer;
+  }
+  
+  .popup li:hover {
+    background-color: #f4f4f4;
+  }
+  
+.pop{
+    display: flex; /* Set list items to display inline */
+    align-items: center; /* Add some margin between list items */
+    padding: 10px;
+    gap: 50%;
+    line-gap-override: 20%;
+    text-align: justify;
+}
+  
+

@@ -1,0 +1,159 @@
+/* Signup Page */
+.signup-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f3f4f6;
+  position: relative;
+  transform: translateY(-9%);
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  max-width: 100%;
+}
+
+.signup-form-container {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 2; /* Ensure this is above the background image */
+}
+
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: -200px;
+  width: 390px;
+  transform: translateY(-54%);
+}
+
+.logo {
+  width: 200px; /* Adjust this value to change the logo size */
+  height: auto;
+}
+
+.signup-form {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.signup-form h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type='email'],
+input[type='password'] {
+  padding: 12px 15px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input[type='email']::placeholder,
+input[type='password']::placeholder {
+  color: #bbb;
+}
+
+input[type='email']:focus,
+input[type='password']:focus {
+  border-color: #a5a5a5;
+}
+
+.sigh {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.sigh:hover {
+  background-color: #45a049;
+}
+
+/* Styles for Checkbox */
+.loginSignup-agree {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.loginSignup-agree input[type='checkbox'] {
+  margin-right: 10px;
+}
+
+.loginSignup-agree label {
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+}
+
+.error {
+  color: #ff0000;
+  margin-top: 5px;
+}
+
+/* Toggle Mode Styling */
+.toggle-mode {
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #007bff;
+}
+
+.toggle-mode:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .signup-form-container {
+    padding: 30px;
+  }
+
+  .signup-form h2 {
+    font-size: 1.5rem;
+  }
+}

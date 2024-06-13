@@ -1,0 +1,89 @@
+/* Newsletter Wrapper Styles */
+.newsletter-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f3f4f6;
+}
+
+/* Newsletter Container */
+.newsletter {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.newsletter h1 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.newsletter p {
+    font-size: 1rem;
+    margin-bottom: 25px;
+    color: #666;
+}
+
+/* Input and Button Styling */
+.newsletter div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.newsletter input[type="email"] {
+    padding: 12px 15px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.newsletter input[type="email"]::placeholder {
+    color: #bbb;
+}
+
+.newsletter input[type="email"]:focus {
+    border-color: #a5a5a5;
+}
+
+.newsletter button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.newsletter button:hover {
+    background-color: #45a049;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .newsletter {
+        padding: 30px;
+    }
+
+    .newsletter h1 {
+        font-size: 1.5rem;
+    }
+
+    .newsletter p {
+        font-size: 0.9rem;
+    }
+}
