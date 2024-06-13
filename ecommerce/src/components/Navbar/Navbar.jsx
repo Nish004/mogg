@@ -7,9 +7,16 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [showPopup, setShowPopup] = useState(false);
-
-  const togglePopup = () => {
-    setShowPopup(!showPopup);
+  const [account_nav_name,setAccountNavName] = useState('signin')
+  const showPopupfn = () => {
+    setShowPopup(true)
+  };
+  const closePopupfn = () => {
+    setTimeout((e)=>{
+    
+      setShowPopup(false)
+    },1000)
+  
   };
 
   return (
@@ -22,9 +29,8 @@ const Navbar = () => {
 
       <ul className="nav-menu">
         <li className="nav-menu-item"><Link style={{textDecoration:'none'}} to='/'>Home</Link></li>
-        <li className="nav-menu-item" onMouseEnter={togglePopup} onMouseLeave={togglePopup}>
+        <li className="nav-menu-item" onMouseEnter={showPopupfn}>
           Shop
-          {showPopup && (
             <div className="popup">
               <ul>
                 <ul className='pop'>
@@ -41,7 +47,7 @@ const Navbar = () => {
                 </ul>
               </ul>
             </div>
-          )}
+        
         </li>
         <li className="nav-menu-item"><Link style={{textDecoration:'none'}} to='/about'>About</Link></li> {/* Update Link to About */}
         <li className="nav-menu-item"><Link style={{textDecoration:'none'}}>Blog</Link></li>
@@ -51,7 +57,7 @@ const Navbar = () => {
         <li className="nav-menu-item">Search</li>
         <li className="nav-menu-item"><Link style={{textDecoration:'none'}}>EN</Link></li>
         <li className="nav-menu-item"><Link style={{textDecoration:'none'}}>Wishlist</Link></li>
-        <Link style={{textDecoration:'none'}} to='/signin'><button className="nav-menu-item">signin</button></Link>
+        <Link style={{textDecoration:'none'}} to='/signin'><button className="nav-menu-item">{account_nav_name}</button></Link>
         <Link style={{textDecoration:'none'}} to='/cart'><img src={cart_icon} alt="" className="cart-icon" /></Link>
         <div className="nav-cart-count">0</div>
       </div>

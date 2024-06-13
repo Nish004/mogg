@@ -99,6 +99,11 @@ button,
   cursor: pointer; /* Show pointer cursor on hover */
   transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
 }
+
+.nav-menu-item:hover .popup{
+  visibility: visible;
+}
+
 .nav-menu-item:hover,
 button:hover,
 .cart-icon:hover {
@@ -128,9 +133,9 @@ button:active,
   }
 
   .popup {
+    visibility: hidden;
     position: absolute;
-    top: 100%;
-    left: 0;
+    top: 150%;
     background-color: #ffffff;
     width: 270px;
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
@@ -142,6 +147,10 @@ button:active,
     font-optical-sizing: auto;
     font-style: normal;
     border-radius: 5px;
+    transition: all 200ms;
+  }
+  .popup:hover{
+    visibility: visible;
   }
   
   .popup ul {
