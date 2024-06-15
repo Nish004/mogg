@@ -3,10 +3,10 @@ import './CSS/ShopCategory.css';
 import { ShopContext } from '../context/ShopContext';
 import dropdown_icon from '../components/Assets/dropdown_icon.png';
 import Item from '../components/items/Item';
-import useScrollToTop from '../hooks/useScrollToTop ';
+
 
 const ShopCategory = (props) => {
-  useScrollToTop();
+
 
   const { all_product } = useContext(ShopContext);
 
