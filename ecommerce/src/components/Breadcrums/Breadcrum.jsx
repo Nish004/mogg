@@ -1,13 +1,18 @@
 // Breadcrum.js
+
 import React from 'react';
 import './Breadcrum.css';
 import arrow_icon from '../Assets/breadcrum_arrow.png';
 
-const Breadcrum = (props) => {
-    const { product } = props;
+const Breadcrum = ({ product }) => {
+    if (!product || !product.category || !product.name) {
+        console.error('Invalid product data:', product);
+        return <div className="breadcrum">Product information is missing</div>;
+    }
+
     return (
         <div className="breadcrum">
-            HOME <img src={arrow_icon} alt="" /> SHOP <img src={arrow_icon} alt="" /> {product.category} <img src={arrow_icon} alt="" /> {product.name}
+            HOME <img src={arrow_icon} alt="arrow" /> SHOP <img src={arrow_icon} alt="arrow" /> {product.category} <img src={arrow_icon} alt="arrow" /> {product.name}
         </div>
     );
 };

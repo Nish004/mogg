@@ -1,9 +1,16 @@
 /* Breadcrum.css */
 .breadcrum {
-    display: flex;
-    align-items: center;
-  }
-  .breadcrum img {
-    margin: 0 5px;
-  }
-  
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #5e5e5e;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 40px ;
+  transform: translateY(-400%);
+  text-transform: capitalize;
+  visibility: visible;
+}
+.breadcrum img {
+  margin: 0 5px;
+}
