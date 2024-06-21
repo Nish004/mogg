@@ -1,22 +1,24 @@
 // src/components/Navbar/Navbar.js
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './Navbar.css';
 import logo from '../Assets/MOGG_OG-removebg-preview.png';
 import cart_icon from '../Assets/cart.png';
 import { Link } from 'react-router-dom';
+import { ShopContext } from '../../context/ShopContext';
 
 const Navbar = () => {
+  const { totalItemsInCart } = useContext(ShopContext); // Access totalItemsInCart from context
   const [showPopup, setShowPopup] = useState(false);
-  const [account_nav_name,setAccountNavName] = useState('signin')
+  const [account_nav_name, setAccountNavName] = useState('signin');
+
   const showPopupfn = () => {
-    setShowPopup(true)
+    setShowPopup(true);
   };
+
   const closePopupfn = () => {
-    setTimeout((e)=>{
-    
-      setShowPopup(false)
-    },1000)
-  
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 1000);
   };
 
   return (
@@ -28,41 +30,40 @@ const Navbar = () => {
       </div>
 
       <ul className="nav-menu">
-        <li className="nav-menu-item"><Link style={{textDecoration:'none'}} to='/'>Home</Link></li>
+        <li className="nav-menu-item"><Link style={{ textDecoration: 'none' }} to='/'>Home</Link></li>
         <li className="nav-menu-item" onMouseEnter={showPopupfn}>
           Shop
-            <div className="popup">
-              <ul>
-                <ul className='pop'>
-                  <li className="nav-menu-item"><Link style={{textDecoration:'none'}} to='/Shirts'>Shirts</Link></li>
-                  <li className="nav-menu-item"><Link style={{textDecoration:'none'}} to='/Hoodies'>Hoodies</Link></li>
-                </ul>
-                <ul className='pop'>
-                  <li className="nav-menu-item"><Link style={{textDecoration:'none'}} to='/Jacket'>Jacket</Link></li>
-                  <li className="nav-menu-item"><Link style={{textDecoration:'none'}} to='/Jeans'>Jeans</Link></li>
-                </ul>
-                <ul className='pop'>
-                  <li className="nav-menu-item"><Link style={{textDecoration:'none'}} to='/Shoes'>Shoes</Link></li>
-                  <li className="nav-menu-item"><Link style={{textDecoration:'none'}} to='/Shorts'>Shorts</Link></li>
-                </ul>
+          <div className="popup">
+            <ul>
+              <ul className='pop'>
+                <li className="nav-menu-item"><Link style={{ textDecoration: 'none' }} to='/Shirts'>Shirts</Link></li>
+                <li className="nav-menu-item"><Link style={{ textDecoration: 'none' }} to='/Hoodies'>Hoodies</Link></li>
               </ul>
-            </div>
-        
+              <ul className='pop'>
+                <li className="nav-menu-item"><Link style={{ textDecoration: 'none' }} to='/Jacket'>Jacket</Link></li>
+                <li className="nav-menu-item"><Link style={{ textDecoration: 'none' }} to='/Jeans'>Jeans</Link></li>
+              </ul>
+              <ul className='pop'>
+                <li className="nav-menu-item"><Link style={{ textDecoration: 'none' }} to='/Shoes'>Shoes</Link></li>
+                <li className="nav-menu-item"><Link style={{ textDecoration: 'none' }} to='/Shorts'>Shorts</Link></li>
+              </ul>
+            </ul>
+          </div>
         </li>
-        <li className="nav-menu-item"><Link style={{textDecoration:'none'}} to='/about'>About</Link></li> {/* Update Link to About */}
-        <li className="nav-menu-item"><Link style={{textDecoration:'none'}}>Blog</Link></li>
+        <li className="nav-menu-item"><Link style={{ textDecoration: 'none' }} to='/about'>About</Link></li> {/* Update Link to About */}
+        <li className="nav-menu-item"><Link style={{ textDecoration: 'none' }}>Blog</Link></li>
       </ul>
 
       <div className="nav-login-cart">
-        <li className="nav-menu-item">Search</li>
-        <li className="nav-menu-item"><Link style={{textDecoration:'none'}}>EN</Link></li>
-        <li className="nav-menu-item"><Link style={{textDecoration:'none'}}>Wishlist</Link></li>
-        <Link style={{textDecoration:'none'}} to='/signin'><button className="nav-menu-item">{account_nav_name}</button></Link>
-        <Link style={{textDecoration:'none'}} to='/cart'><img src={cart_icon} alt="" className="cart-icon" /></Link>
-        <div className="nav-cart-count">0</div>
+        <li className="nav-menu-item"><Link style={{ textDecoration: 'none' }}>Wishlist</Link></li>
+        <Link style={{ textDecoration: 'none' }} to='/signin'><button className="nav-menu-item">{account_nav_name}</button></Link>
+        <Link style={{ textDecoration: 'none' }} to='/cart'>
+          <img src={cart_icon} alt="" className="cart-icon" />
+          {totalItemsInCart > 0 && <div className="nav-cart-count">{totalItemsInCart}</div>}
+        </Link>
       </div>
     </div>
   );
-}
+};
 
 export default Navbar;

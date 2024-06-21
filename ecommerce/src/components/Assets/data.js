@@ -33,7 +33,7 @@ let data_product =
   },
     {id:5,
       name:"Topman long sleeve oversized double sleeve cotton shirt in blue stripe",
-      image:p4_img,
+      image:p5_img,
       new_price:100.00,
       old_price:150.00,
     }

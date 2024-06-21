@@ -1,4 +1,3 @@
-// src/App.js
 import React from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
@@ -8,7 +7,7 @@ import Product from './pages/Product';
 import Shopcategory from './pages/Shopcategory';
 import Cart from './pages/Cart';
 import Signup from './pages/Signup';
-import About from './pages/About'; // Import the About component
+import About from './pages/About'; 
 import Footer from './components/footer/Footer';
 
 function App() {
@@ -28,7 +27,7 @@ function App() {
           <Route path='/product/:productId' element={<Product />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/signin' element={<Signup />} />
-          <Route path='/about' element={<About />} /> {/* Add the About route */}
+          <Route path='/about' element={<About />} /> 
         </Routes> 
         <Footer/>
       </BrowserRouter>

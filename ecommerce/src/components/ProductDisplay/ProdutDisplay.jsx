@@ -1,28 +1,34 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import './ProductDisplay.css';
 import star_icon from "../Assets/star_icon.png";
 import star_dull_icon from "../Assets/star_dull_icon.png";
+import { ShopContext } from '../../context/ShopContext';
 
 const ProdutDisplay = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState(""); // State to track selected size
   const [isInWishlist, setIsInWishlist] = useState(false);
+  const { addToCart } = useContext(ShopContext);
 
   const handleQuantityChange = (e) => {
     const value = parseInt(e.target.value, 10);
     setQuantity(value);
   };
 
-  const handleBuyNow = () => {
-    console.log(`Buy Now: Product ${product.name}, Quantity ${quantity}, Size ${selectedSize}`);
-    // Implement logic for Buy Now action (e.g., redirect to checkout)
-  };
+  // const handleBuyNow = () => {
+  //   console.log(`Buy Now: Product ${product.name}, Quantity ${quantity}, Size ${selectedSize}`);
+  //   // Implement logic for Buy Now action (e.g., redirect to checkout)
+  // };
 
   const handleAddToCart = () => {
+    if (!selectedSize) {
+      alert("Please select a size");
+      return;
+    }
     console.log(`Add to Cart: Product ${product.name}, Quantity ${quantity}, Size ${selectedSize}`);
-    // Implement logic for Add to Cart action
+    addToCart(product.id, selectedSize); // Pass selectedSize along with product.id
   };
-
+  
   const handleToggleWishlist = () => {
     setIsInWishlist(!isInWishlist);
   };
@@ -31,6 +37,10 @@ const ProdutDisplay = ({ product }) => {
     setSelectedSize(size === selectedSize ? "" : size); // Toggle selected size
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className='productdisplay'>
       <div className="productdisplay-left">
@@ -38,7 +48,6 @@ const ProdutDisplay = ({ product }) => {
           <img src={product.image} alt='' />
           <img src={product.image} alt='' />
           <img src={product.image} alt='' />
-          
         </div>
         <div className="productdisplay-img">
           <img className='productdisplay-main-img' src={product.image} alt="" />
@@ -93,7 +102,6 @@ const ProdutDisplay = ({ product }) => {
               onChange={handleQuantityChange}
               className="product-quantity-input"
             />
-            <button onClick={handleBuyNow} className="product-action-button">Buy Now</button>
             <button onClick={handleAddToCart} className="product-action-button">Add to Cart</button>
             <button onClick={handleToggleWishlist} className="product-heart-button">
               <svg

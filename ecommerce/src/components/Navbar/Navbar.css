@@ -119,17 +119,14 @@ button:active,
 }
 
 .nav-cart-count {
-   width: 22px;
-   height: 22px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   margin-top: -35px;
-   margin-left: -55px;
-   border-radius: 11px;
-   font-size: 14px;
-   background: rgb(37, 82, 167);
-   color: rgb(255, 255, 255);
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 0 6px;
+  font-size: 12px;
+  position: absolute;
+  top: 12px;
+  right: 115px;
   }
 
   .popup {
