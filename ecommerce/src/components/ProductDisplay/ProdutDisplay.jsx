@@ -2,23 +2,21 @@ import React, { useContext, useState, useEffect } from 'react';
 import './ProductDisplay.css';
 import star_icon from "../Assets/star_icon.png";
 import star_dull_icon from "../Assets/star_dull_icon.png";
+import tick_icon from "../Assets/tick_icon.png"; // Import tick icon
 import { ShopContext } from '../../context/ShopContext';
 
 const ProdutDisplay = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState(""); // State to track selected size
   const [isInWishlist, setIsInWishlist] = useState(false);
+  const [showCartConfirmation, setShowCartConfirmation] = useState(false); // State for cart confirmation message
+  const [wishlistMessage, setWishlistMessage] = useState(""); // State for wishlist confirmation message
   const { addToCart } = useContext(ShopContext);
 
   const handleQuantityChange = (e) => {
     const value = parseInt(e.target.value, 10);
     setQuantity(value);
   };
-
-  // const handleBuyNow = () => {
-  //   console.log(`Buy Now: Product ${product.name}, Quantity ${quantity}, Size ${selectedSize}`);
-  //   // Implement logic for Buy Now action (e.g., redirect to checkout)
-  // };
 
   const handleAddToCart = () => {
     if (!selectedSize) {
@@ -27,10 +25,19 @@ const ProdutDisplay = ({ product }) => {
     }
     console.log(`Add to Cart: Product ${product.name}, Quantity ${quantity}, Size ${selectedSize}`);
     addToCart(product.id, selectedSize); // Pass selectedSize along with product.id
+    setShowCartConfirmation(true);
+    setTimeout(() => {
+      setShowCartConfirmation(false);
+    }, 800); // Hide the message after 0.8 seconds
   };
   
   const handleToggleWishlist = () => {
-    setIsInWishlist(!isInWishlist);
+    const newWishlistState = !isInWishlist;
+    setIsInWishlist(newWishlistState);
+    setWishlistMessage(newWishlistState ? "Added to Wishlist" : "Removed from Wishlist");
+    setTimeout(() => {
+      setWishlistMessage("");
+    }, 800); // Hide the message after 0.8 seconds
   };
 
   const handleSizeClick = (size) => {
@@ -118,6 +125,17 @@ const ProdutDisplay = ({ product }) => {
               </svg>
             </button>
           </div>
+          {showCartConfirmation && (
+            <div className="confirmation-message">
+              <img src={tick_icon} alt="Tick" className="tick-icon" />
+              <span>Added to Cart</span>
+            </div>
+          )}
+          {wishlistMessage && (
+            <div className="confirmation-message">
+              <span className='wish'>{wishlistMessage}</span>
+            </div>
+          )}
         </div>
       </div>
     </div>

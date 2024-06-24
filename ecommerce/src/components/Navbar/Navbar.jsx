@@ -1,4 +1,5 @@
 // src/components/Navbar/Navbar.js
+
 import React, { useContext, useState } from 'react';
 import './Navbar.css';
 import logo from '../Assets/MOGG_OG-removebg-preview.png';
@@ -55,12 +56,17 @@ const Navbar = () => {
       </ul>
 
       <div className="nav-login-cart">
-        <li className="nav-menu-item"><Link style={{ textDecoration: 'none' }}>Wishlist</Link></li>
-        <Link style={{ textDecoration: 'none' }} to='/signin'><button className="nav-menu-item">{account_nav_name}</button></Link>
-        <Link style={{ textDecoration: 'none' }} to='/cart'>
-          <img src={cart_icon} alt="" className="cart-icon" />
-          {totalItemsInCart > 0 && <div className="nav-cart-count">{totalItemsInCart}</div>}
-        </Link>
+        {/* <li className="nav-menu-item"><Link style={{ textDecoration: 'none' }}>Wishlist</Link></li> */}
+          {localStorage.getItem('auth-token')
+          ?<button onClick={()=>{localStorage.removeItem('auth-token');window.location.replace('/')}}>Logout</button>
+        :<Link style={{ textDecoration: 'none' }} to='/signin'><button className="nav-menu-item">{account_nav_name}</button></Link>}
+        
+        <div className="cart-icon-wrapper">
+          <Link style={{ textDecoration: 'none' }} to='/cart'>
+            <img src={cart_icon} alt="" className="cart-icon" />
+            {totalItemsInCart > 0 && <div className="nav-cart-count">{totalItemsInCart}</div>}
+          </Link>
+        </div>
       </div>
     </div>
   );

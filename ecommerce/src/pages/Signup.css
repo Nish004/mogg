@@ -6,7 +6,7 @@
   height: 100vh;
   background-color: #f3f4f6;
   position: relative;
-  transform: translateY(-9%);
+  transform: translateY(-10%);
 }
 
 .background-image {
@@ -24,7 +24,22 @@
   justify-content: center;
   align-items: center;
   z-index: 1;
-  max-width: 100%;
+  width: 800px;
+  position: relative;
+  transform: translateY(-5%);
+}
+
+.logo-wrapper {
+  position: absolute;
+  top: -100px; /* Adjust this value as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1; /* Ensure this is behind the form container */
+}
+
+.logo {
+  width: 300px; /* Adjust this value to change the logo size */
+  height: auto;
 }
 
 .signup-form-container {
@@ -39,20 +54,6 @@
   z-index: 2; /* Ensure this is above the background image */
 }
 
-.logo-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: -200px;
-  width: 390px;
-  transform: translateY(-54%);
-}
-
-.logo {
-  width: 200px; /* Adjust this value to change the logo size */
-  height: auto;
-}
-
 .signup-form {
   width: 100%;
   margin: 0 auto;
@@ -61,7 +62,7 @@
 .signup-form h2 {
   font-size: 1.8rem;
   margin-bottom: 20px;
-  color: #ffffff;
+  color: #000000;
 }
 
 .form-group {
@@ -75,7 +76,8 @@ label {
 }
 
 input[type='email'],
-input[type='password'] {
+input[type='password'],
+input[type='text'] {
   padding: 12px 15px;
   width: 100%;
   border: 1px solid #ddd;
@@ -87,12 +89,14 @@ input[type='password'] {
 }
 
 input[type='email']::placeholder,
-input[type='password']::placeholder {
+input[type='password']::placeholder,
+input[type='text']::placeholder {
   color: #bbb;
 }
 
 input[type='email']:focus,
-input[type='password']:focus {
+input[type='password']:focus,
+input[type='text']:focus {
   border-color: #a5a5a5;
 }
 

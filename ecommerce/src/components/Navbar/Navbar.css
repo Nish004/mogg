@@ -6,6 +6,7 @@
   .Navbar {
     display: flex;
     
+    
     justify-content: space-around;
     padding: 16px;
     
@@ -174,3 +175,25 @@ button:active,
 }
   
 
+/* src/components/Navbar/Navbar.css */
+
+.cart-icon-wrapper {
+  position: relative; /* Ensure the wrapper is relative for absolute positioning */
+}
+
+.cart-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.nav-cart-count {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 0 6px;
+  font-size: 12px;
+  position: absolute;
+  top: -20%; /* Position at 50% from the top of the .cart-icon-wrapper */
+  right: -16px; /* Adjust as needed to align properly */
+  transform: translateY(-50%); /* Center vertically */
+}

@@ -166,3 +166,28 @@
 .product-heart-button svg:hover {
   stroke: #d30d0d;
 }
+
+.confirmation-message {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #4caf50;
+ 
+}
+
+.tick-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.wish {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #dd4343;
+  text-decoration: solid;
+
+}

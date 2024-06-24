@@ -1,0 +1,6 @@
+.admin {
+    display: flex;
+    flex-direction: row; /* Sidebar and content side-by-side */
+    height: 100vh; /* Full viewport height */
+  }
+  
