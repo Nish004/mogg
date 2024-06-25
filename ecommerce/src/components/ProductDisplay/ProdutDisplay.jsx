@@ -2,15 +2,15 @@ import React, { useContext, useState, useEffect } from 'react';
 import './ProductDisplay.css';
 import star_icon from "../Assets/star_icon.png";
 import star_dull_icon from "../Assets/star_dull_icon.png";
-import tick_icon from "../Assets/tick_icon.png"; // Import tick icon
+import tick_icon from "../Assets/tick_icon.png";
 import { ShopContext } from '../../context/ShopContext';
 
 const ProdutDisplay = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
-  const [selectedSize, setSelectedSize] = useState(""); // State to track selected size
+  const [selectedSize, setSelectedSize] = useState("");
   const [isInWishlist, setIsInWishlist] = useState(false);
-  const [showCartConfirmation, setShowCartConfirmation] = useState(false); // State for cart confirmation message
-  const [wishlistMessage, setWishlistMessage] = useState(""); // State for wishlist confirmation message
+  const [showCartConfirmation, setShowCartConfirmation] = useState(false);
+  const [wishlistMessage, setWishlistMessage] = useState("");
   const { addToCart } = useContext(ShopContext);
 
   const handleQuantityChange = (e) => {
@@ -24,11 +24,11 @@ const ProdutDisplay = ({ product }) => {
       return;
     }
     console.log(`Add to Cart: Product ${product.name}, Quantity ${quantity}, Size ${selectedSize}`);
-    addToCart(product.id, selectedSize); // Pass selectedSize along with product.id
+    addToCart(product.id, selectedSize);
     setShowCartConfirmation(true);
     setTimeout(() => {
       setShowCartConfirmation(false);
-    }, 800); // Hide the message after 0.8 seconds
+    }, 800);
   };
   
   const handleToggleWishlist = () => {
@@ -37,11 +37,11 @@ const ProdutDisplay = ({ product }) => {
     setWishlistMessage(newWishlistState ? "Added to Wishlist" : "Removed from Wishlist");
     setTimeout(() => {
       setWishlistMessage("");
-    }, 800); // Hide the message after 0.8 seconds
+    }, 800);
   };
 
   const handleSizeClick = (size) => {
-    setSelectedSize(size === selectedSize ? "" : size); // Toggle selected size
+    setSelectedSize(size === selectedSize ? "" : size);
   };
 
   useEffect(() => {

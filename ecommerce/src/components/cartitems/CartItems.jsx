@@ -1,3 +1,4 @@
+// CartItems.js
 import React, { useContext, useState } from 'react';
 import './CartItems.css';
 import { ShopContext } from '../../context/ShopContext';
@@ -5,14 +6,18 @@ import { Link } from 'react-router-dom';
 import emptyCartImage from '../cartitems/empty-cart.png'; // Ensure the path to the image is correct
 
 const CartItems = () => {
-  const { cartItems, all_product, addToCart, removeFromCart } = useContext(ShopContext);
+  const { cartItems, allProducts, addToCart, removeFromCart } = useContext(ShopContext);
   const [promoCode, setPromoCode] = useState('');
   const [discount, setDiscount] = useState(0);
 
   const getTotalCartAmount = () => {
     return Object.keys(cartItems).reduce((total, itemId) => {
-      const product = all_product.find((prod) => prod.id === parseInt(itemId));
-      return total + (product.new_price * cartItems[itemId].quantity);
+      const product = allProducts.find((prod) => prod.id === parseInt(itemId));
+      if (product) {
+        return total + (product.new_price * cartItems[itemId].quantity);
+      }
+      console.error(`Product with ID ${itemId} not found in allProducts`);
+      return total; // Handle scenario where product is not found
     }, 0);
   };
 
@@ -26,7 +31,6 @@ const CartItems = () => {
       alert('Invalid promo code');
     }
   };
- 
 
   const cartIsEmpty = Object.keys(cartItems).every((itemId) => cartItems[itemId].quantity === 0);
   const totalAmount = getTotalCartAmount();
@@ -45,13 +49,17 @@ const CartItems = () => {
           <>
             {Object.keys(cartItems).map((itemId) => {
               if (cartItems[itemId].quantity === 0) return null; // Skip products with zero quantity
-              const product = all_product.find((prod) => prod.id === parseInt(itemId));
+              const product = allProducts.find((prod) => prod.id === parseInt(itemId));
+              if (!product) {
+                console.error(`Product with ID ${itemId} not found in allProducts`);
+                return null; // Handle scenario where product is not found
+              }
               return (
                 <div className='cart-item' key={itemId}>
                   <img src={product.image} alt={product.name} className='cart-item-image' />
                   <div className='cart-item-details'>
                     <h2>{product.name}</h2>
-                    <p className='cart-item-size'>Size: {cartItems[itemId].size}</p> {/* Display selected size */}
+                    <p className='cart-item-size'>Size: {cartItems[itemId].size}</p>
                     <p className='cart-item-price'>${product.new_price.toFixed(2)}</p>
                     <div className='cart-item-quantity'>
                       <button onClick={() => removeFromCart(itemId)}>-</button>

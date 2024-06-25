@@ -1,65 +1,63 @@
 // ShopContextProvider.js
-
-import React, { createContext, useState, useMemo, useEffect } from "react";
+import React, { createContext, useState, useEffect, useMemo } from "react";
+import axios from 'axios'; // Import axios for making HTTP requests
 
 export const ShopContext = createContext(null);
 
-const getDefaultCart = () => {
-  let cart = {};
-  for (let index = 0; index <= 300; index++) {
-    cart[index] = 0;
-  }
-  return cart;
-};
-
 const ShopContextProvider = (props) => {
   const [allProducts, setAllProducts] = useState([]);
-  const [cartItems, setCartItems] = useState(getDefaultCart());
+  const [cartItems, setCartItems] = useState({});
 
+  // Fetch all products from backend on component mount
   useEffect(() => {
-    fetch('http://localhost:4000/allproduct')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Data received from API:", data); // Check if data is received
-        setAllProducts(data); // Set allProducts state
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-      });
-  }, []); // Ensure empty dependency array to run once on component mount
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/allproduct');
+        setAllProducts(response.data); // Assuming backend sends an array of products
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
+  // Function to add a product to the cart
   const addToCart = (itemId, selectedSize) => {
     setCartItems((prev) => ({
       ...prev,
       [itemId]: {
         quantity: (prev[itemId]?.quantity || 0) + 1,
-        size: selectedSize
-      }
+        size: selectedSize,
+      },
     }));
   };
 
+  // Function to remove a product from the cart
   const removeFromCart = (itemId) => {
     if (cartItems[itemId]?.quantity > 0) {
       setCartItems((prev) => ({
         ...prev,
         [itemId]: {
           ...prev[itemId],
-          quantity: prev[itemId].quantity - 1
-        }
+          quantity: prev[itemId].quantity - 1,
+        },
       }));
     }
   };
 
-  const totalItemsInCart = useMemo(() => {
-    return Object.values(cartItems).reduce((total, item) => total + item.quantity, 0);
-  }, [cartItems]);
+  // Memoize total items in cart to optimize performance
+  const totalItemsInCart = useMemo(
+    () =>
+      Object.values(cartItems).reduce((total, item) => total + item.quantity, 0),
+    [cartItems]
+  );
 
   const contextValue = {
     allProducts,
     cartItems,
     addToCart,
     removeFromCart,
-    totalItemsInCart
+    totalItemsInCart,
   };
 
   return (

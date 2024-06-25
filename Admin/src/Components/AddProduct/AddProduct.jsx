@@ -1,96 +1,118 @@
-import React, { useState } from 'react'
-import './AddProduct.css'
-import upload_area from '../../assets/upload_area.svg'
+// AddProduct.js (frontend)
+
+import React, { useState } from 'react';
+import './AddProduct.css';
+import upload_area from '../../assets/upload_area.svg';
 
 const AddProduct = () => {
+  const [image, setImage] = useState(null);
+  const [productDetails, setProductDetails] = useState({
+    name: '',
+    image: '',
+    category: 'Shirt',
+    new_price: '',
+    old_price: '',
+  });
 
-      const [image,setImage] = useState(false);
-      const [productDetails,setProductDetails] = useState({
-        name:"",
-        image:"",
-        category:"Shirt",
-        new_price:"",
-        old_price:""
-      })
-      
-      const imageHandler = (e) => {
-         setImage(e.target.files[0]);
+  const imageHandler = (e) => {
+    setImage(e.target.files[0]);
+  };
+
+  const changeHandler = (e) => {
+    setProductDetails({ ...productDetails, [e.target.name]: e.target.value });
+  };
+
+  const addProduct = async () => {
+    try {
+      let responseData;
+
+      // Upload image first
+      const formData = new FormData();
+      formData.append('product', image);
+
+      const uploadResponse = await fetch('http://localhost:4000/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!uploadResponse.ok) {
+        throw new Error('Failed to upload image');
       }
 
-       const changeHandler = (e) =>{
-        setProductDetails({...productDetails,[e.target.name]:e.target.value})
-       }
-      
-       const Add_Product = async ()=>{
-        console.log(productDetails);
-        let responseData;
-        let product = productDetails;
+      const { image_url } = await uploadResponse.json();
 
-        let formData = new FormData();
-        formData.append('product',image);
+      // Update product details with image URL
+      const product = {
+        ...productDetails,
+        image: image_url,
+        new_price: Number(productDetails.new_price),
+        old_price: Number(productDetails.old_price),
+      };
 
-        await fetch('http://localhost:4000/upload',{
-            method:'POST',
-            headers:{
-                Accept:'application/json',
-            },
-            body:formData,
-        }).then((resp) => resp.json()).then((data)=>{responseData=data});
+      // Add product to backend
+      const addProductResponse = await fetch('http://localhost:4000/addproduct', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(product),
+      });
 
-       if(responseData.success)
-        {
-            product.image = responseData.image_url;
-            console.log(product);
-            await fetch('http://localhost:4000/addproduct',{
-                method: 'POST',
-                headers:{
-                    Accept:'application/json',
-                    'Content-Type':'application/json'
-                },
-                body:JSON.stringify(product),
-             }).then((resp)=>resp.json()).then((data)=>{
-                data.success?alert("Product Added"):alert("Failed")
-             })
-        }
+      if (!addProductResponse.ok) {
+        throw new Error('Failed to add product');
+      }
+
+      const data = await addProductResponse.json();
+
+      if (data.success) {
+        alert('Product added successfully');
+      } else {
+        alert('Failed to add product');
+      }
+    } catch (error) {
+      console.error('Error adding product:', error);
+      alert('Failed to add product');
     }
+  };
 
   return (
     <div className='add-product'>
-        <div className="addproduct-itemfield">
-            <p>Product title</p>
-            <input value={productDetails.name} onChange={changeHandler} type="text" name='name' placeholder='type here'/>
-     
+      <div className='addproduct-itemfield'>
+        <p>Product title</p>
+        <input value={productDetails.name} onChange={changeHandler} type='text' name='name' placeholder='Type here' />
+      </div>
+      <div className='addproduct-price'>
+        <div className='addproduct-itemfield'>
+          <p>Price</p>
+          <input value={productDetails.old_price} onChange={changeHandler} type='text' name='old_price' placeholder='Type here' />
         </div>
-        <div className="addproduct-price">
-            <div className="addproduct-itemfield">
-                <p>Price</p>
-                <input value={productDetails.old_price} onChange={changeHandler} type="text" name="old_price" placeholder='Type here' />
-            </div>
-            <div className="addproduct-itemfield">
-                <p>Offer Price</p>
-                <input value={productDetails.new_price} onChange={changeHandler} type="text" name="new_price" placeholder='Type here' />
-            </div>
+        <div className='addproduct-itemfield'>
+          <p>Offer Price</p>
+          <input value={productDetails.new_price} onChange={changeHandler} type='text' name='new_price' placeholder='Type here' />
         </div>
-      <div className="addproduct-itemfield">
+      </div>
+      <div className='addproduct-itemfield'>
         <p>Product Category</p>
-        <select value={productDetails.category} onChange={changeHandler} name="category" id="" className="add-product-selector">
-            <option value='shirt'>Shirt</option>
-            <option value='hoodies'>Hoodies</option>
-            <option value='shorts'>Shorts</option>
-            <option value='shoes'>Shoes</option>
-            <option value='jeans'>Jeans</option>
-            <option value='jacket'>Jacket</option>
+        <select value={productDetails.category} onChange={changeHandler} name='category' id='' className='add-product-selector'>
+          <option value='Shirt'>Shirt</option>
+          <option value='Hoodies'>Hoodies</option>
+          <option value='Shorts'>Shorts</option>
+          <option value='Shoes'>Shoes</option>
+          <option value='Jeans'>Jeans</option>
+          <option value='Jacket'>Jacket</option>
         </select>
       </div>
-      <div className="addproduct-itemfield">
-        <label htmlFor="file-input">
-            <img src={image?URL.createObjectURL(image):upload_area} className='addproduct-thumnail-img' alt="" />
+      <div className='addproduct-itemfield'>
+        <label htmlFor='file-input'>
+          <img src={image ? URL.createObjectURL(image) : upload_area} className='addproduct-thumbnail-img' alt='' />
         </label>
-        <input onChange={imageHandler} type="file" name='image' id='file-input' hidden/>
+        <input onChange={imageHandler} type='file' name='image' id='file-input' hidden />
       </div>
-      <button onClick={() => {Add_Product()}} className="addproduct-btn">ADD</button>
+      <button onClick={addProduct} className='addproduct-btn'>
+        ADD
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default AddProduct
+export default AddProduct;

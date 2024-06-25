@@ -1,5 +1,3 @@
-// src/components/Navbar/Navbar.js
-
 import React, { useContext, useState } from 'react';
 import './Navbar.css';
 import logo from '../Assets/MOGG_OG-removebg-preview.png';
@@ -9,17 +7,11 @@ import { ShopContext } from '../../context/ShopContext';
 
 const Navbar = () => {
   const { totalItemsInCart } = useContext(ShopContext); // Access totalItemsInCart from context
-  const [showPopup, setShowPopup] = useState(false);
-  const [account_nav_name, setAccountNavName] = useState('signin');
+  const [showPopup, setShowPopup] = useState(false); // useState variable
+  const [account_nav_name, setAccountNavName] = useState('signin'); // useState variable
 
   const showPopupfn = () => {
     setShowPopup(true);
-  };
-
-  const closePopupfn = () => {
-    setTimeout(() => {
-      setShowPopup(false);
-    }, 1000);
   };
 
   return (
@@ -51,16 +43,15 @@ const Navbar = () => {
             </ul>
           </div>
         </li>
-        <li className="nav-menu-item"><Link style={{ textDecoration: 'none' }} to='/about'>About</Link></li> {/* Update Link to About */}
+        <li className="nav-menu-item"><Link style={{ textDecoration: 'none' }} to='/about'>About</Link></li>
         <li className="nav-menu-item"><Link style={{ textDecoration: 'none' }}>Blog</Link></li>
       </ul>
 
       <div className="nav-login-cart">
-        {/* <li className="nav-menu-item"><Link style={{ textDecoration: 'none' }}>Wishlist</Link></li> */}
-          {localStorage.getItem('auth-token')
-          ?<button onClick={()=>{localStorage.removeItem('auth-token');window.location.replace('/')}}>Logout</button>
-        :<Link style={{ textDecoration: 'none' }} to='/signin'><button className="nav-menu-item">{account_nav_name}</button></Link>}
-        
+        {localStorage.getItem('auth-token')
+          ? <button onClick={() => { localStorage.removeItem('auth-token'); window.location.replace('/') }}>Logout</button>
+          : <Link style={{ textDecoration: 'none' }} to='/signin'><button className="nav-menu-item">{account_nav_name}</button></Link>}
+
         <div className="cart-icon-wrapper">
           <Link style={{ textDecoration: 'none' }} to='/cart'>
             <img src={cart_icon} alt="" className="cart-icon" />

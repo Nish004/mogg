@@ -1,39 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Trending.css';
 import banner from '../Hero/image/banner.png';
 import banner1 from '../Hero/image/banner2.png';
 import shoeBanner from '../Hero/image/shoe.png';
-import photo from '../Hero/image/below1.webp';
-import photo1 from '../Hero/image/below2.webp';
-import photo2 from '../Hero/image/below3.webp';
-import photo3 from '../Hero/image/below4.webp';
-import photo4 from '../Hero/image/below5.webp';
-import photo5 from '../Hero/image/below12.webp';
-import photo6 from '../Hero/image/below22.webp';
-import photo7 from '../Hero/image/below32.webp';
-import photo8 from '../Hero/image/below42.jpeg';
-import photo9 from '../Hero/image/below52.webp';
-import all_product from '../../components/Assets/all_product';
+// Remove individual photo imports
+// import all_product from '../../components/Assets/all_product';
+import axios from 'axios'; // Import axios for making HTTP requests
 
 const ProductAlbum = () => {
   const [hoveredImage, setHoveredImage] = useState(null);
+  const [products, setProducts] = useState([]);
 
-  const handleMouseEnter = (image, hoverImage) => {
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/allproduct');
+        setProducts(response.data); // Assuming backend sends an array of products
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+    fetchProducts();
+  }, []); // Empty dependency array ensures this runs once on component mount
+
+  const handleMouseEnter = (hoverImage) => {
     setHoveredImage(hoverImage);
   };
 
   const handleMouseLeave = () => {
     setHoveredImage(null);
   };
-
-  const products = [
-    { defaultImage: photo, hoverImage: photo5, id: 1 },
-    { defaultImage: photo1, hoverImage: photo6, id: 2 },
-    { defaultImage: photo2, hoverImage: photo7, id: 3 },
-    { defaultImage: photo3, hoverImage: photo8, id: 4 },
-    { defaultImage: photo4, hoverImage: photo9, id: 5 },
-  ];
 
   return (
     <div className='product-album'>
@@ -52,7 +49,7 @@ const ProductAlbum = () => {
                 src={hoveredImage === product.hoverImage ? product.hoverImage : product.defaultImage}
                 alt={`Product ${product.id}`}
                 className="product-image"
-                onMouseEnter={() => handleMouseEnter(product.defaultImage, product.hoverImage)}
+                onMouseEnter={() => handleMouseEnter(product.hoverImage)}
                 onMouseLeave={handleMouseLeave}
               />
               <div className="buy-now-overlay">Buy Now</div>

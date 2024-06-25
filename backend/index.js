@@ -37,21 +37,26 @@ const upload = multer({ storage: storage });
 app.use('/images', express.static('upload/images'));
 
 // Upload endpoint for images
-app.post("/upload", upload.single('product'), (req, res) => {
+// Upload endpoint for images
+app.post('/upload', upload.single('product'), (req, res) => {
   try {
     if (!req.file) {
       throw new Error('No file uploaded');
     }
 
+    // Construct the image_url with correct hostname and port
+    const image_url = `${req.protocol}://${req.hostname}:${port}/images/${req.file.filename}`;
+
     res.json({
-      success: 1,
-      image_url: `http://localhost:${port}/images/${req.file.filename}`
+      success: true,
+      image_url: image_url,
     });
   } catch (error) {
     console.error('Error uploading file:', error);
     res.status(500).json({ success: false, message: 'Failed to upload image' });
   }
 });
+
 
 // Schema for creating products
 const Product = mongoose.model("Product", {
