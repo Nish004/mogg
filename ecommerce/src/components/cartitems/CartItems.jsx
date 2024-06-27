@@ -20,7 +20,7 @@ const CartItems = () => {
   };
 
   const applyPromoCode = () => {
-    if (promoCode === 'BHARATHPAPAASWIN10') {
+    if (promoCode === 'NABAS10') {
       setDiscount(0.1); // 10% discount
     } else {
       setDiscount(0);
