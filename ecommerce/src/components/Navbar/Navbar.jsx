@@ -44,7 +44,7 @@ const Navbar = () => {
           </div>
         </li>
         <li className="nav-menu-item"><Link style={{ textDecoration: 'none' }} to='/about'>About</Link></li>
-        <li className="nav-menu-item"><Link style={{ textDecoration: 'none' }}>Blog</Link></li>
+        
       </ul>
 
       <div className="nav-login-cart">

@@ -1,28 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Trending.css';
 import banner from '../Hero/image/banner.png';
 import banner1 from '../Hero/image/banner2.png';
 import shoeBanner from '../Hero/image/shoe.png';
-// Remove individual photo imports
-// import all_product from '../../components/Assets/all_product';
-import axios from 'axios'; // Import axios for making HTTP requests
 
 const ProductAlbum = () => {
   const [hoveredImage, setHoveredImage] = useState(null);
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get('http://localhost:4000/allproduct');
-        setProducts(response.data); // Assuming backend sends an array of products
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-    fetchProducts();
-  }, []); // Empty dependency array ensures this runs once on component mount
 
   const handleMouseEnter = (hoverImage) => {
     setHoveredImage(hoverImage);
@@ -32,15 +16,43 @@ const ProductAlbum = () => {
     setHoveredImage(null);
   };
 
+  const products = [
+    {
+      id: 1,
+      defaultImage: 'http://localhost:4000/images/product_1719333284337.webp',
+      hoverImage: 'http://localhost:4000/images/product_1719333284337.webp',
+    },
+    {
+      id: 3,
+      defaultImage: 'http://localhost:4000/images/product_1719333461549.webp',
+      hoverImage: 'http://localhost:4000/images/product_1719333461549.webp',
+    },
+    {
+      id: 4,
+      defaultImage: 'http://localhost:4000/images/product_1719333683468.webp',
+      hoverImage: 'http://localhost:4000/images/product_1719333683468.webp',
+    },
+    {
+      id: 5,
+      defaultImage: 'http://localhost:4000/images/product_1719333714459.webp',
+      hoverImage: 'http://localhost:4000/images/product_1719333714459.webp',
+    },
+    {
+      id: 6,
+      defaultImage: 'http://localhost:4000/images/product_1719333707228.webp',
+      hoverImage: 'http://localhost:4000/images/product_1719333707228.webp',
+    },
+  ];
+
   return (
     <div className='product-album'>
       <img src={banner} alt="Banner" className="banner-image" />
-      
+
       <div className="text-container">
         <p className="check-out-text">Check Out</p>
         <p className="trending-text">Our Trending Collections</p>
       </div>
-      
+
       <div className="product-images">
         {products.map(product => (
           <div className="product-image-wrapper" key={product.id}>
@@ -51,6 +63,7 @@ const ProductAlbum = () => {
                 className="product-image"
                 onMouseEnter={() => handleMouseEnter(product.hoverImage)}
                 onMouseLeave={handleMouseLeave}
+                onError={(e) => { e.target.onerror = null; e.target.src = 'defaultImage.png'; }} // Fallback image
               />
               <div className="buy-now-overlay">Buy Now</div>
             </Link>

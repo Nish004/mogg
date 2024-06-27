@@ -1,9 +1,8 @@
-// CartItems.js
 import React, { useContext, useState } from 'react';
 import './CartItems.css';
 import { ShopContext } from '../../context/ShopContext';
 import { Link } from 'react-router-dom';
-import emptyCartImage from '../cartitems/empty-cart.png'; // Ensure the path to the image is correct
+import emptyCartImage from '../cartitems/empty-cart.png';
 
 const CartItems = () => {
   const { cartItems, allProducts, addToCart, removeFromCart } = useContext(ShopContext);
@@ -16,14 +15,11 @@ const CartItems = () => {
       if (product) {
         return total + (product.new_price * cartItems[itemId].quantity);
       }
-      console.error(`Product with ID ${itemId} not found in allProducts`);
-      return total; // Handle scenario where product is not found
+      return total;
     }, 0);
   };
 
   const applyPromoCode = () => {
-    // Logic to apply the promo code and set the discount
-    // For now, let's assume a simple promo code 'SAVE10' that gives a 10% discount
     if (promoCode === 'BHARATHPAPAASWIN10') {
       setDiscount(0.1); // 10% discount
     } else {

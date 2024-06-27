@@ -1,12 +1,22 @@
 import React from 'react';
 import './Hero.css';
-import { Link } from 'react-router-dom';
+
 import videoSource from '../Assets/third.mp4';
-import Trending from '../trending/Trending'; // Ensure the path is correct based on the actual location
+import Trending from '../trending/Trending';
 import NewsLetter from '../newsletter/Newsletter';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 
+const Hero = ({ isLoggedIn }) => {
+  const navigate = useNavigate();
 
-const Hero = () => {
+  const handleShopNowClick = () => {
+    if (isLoggedIn) {
+      navigate('/Shirts'); // Navigate to shirts if logged in
+    } else {
+      navigate('/signin'); // Navigate to sign-in page if not logged in
+    }
+  };
+
   return (
     <div className='hero'>
       <video autoPlay loop muted className="hero-video">
@@ -19,8 +29,8 @@ const Hero = () => {
           <h2 className='subtitle'>GRAB SUMMER SALE DISCOUNT% NOW</h2>
         </div>
         <div className='shop-now-button-container'>
-          <button className='shop-now-button'>
-            <Link className='shop-now-link' to='/signin'>Shop Now</Link>
+          <button className='shop-now-button' onClick={handleShopNowClick}>
+            Shop Now
           </button>
         </div>
       </div>
@@ -32,6 +42,6 @@ const Hero = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Hero;

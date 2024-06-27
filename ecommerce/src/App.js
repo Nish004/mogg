@@ -7,17 +7,17 @@ import Product from './pages/Product';
 import Shopcategory from './pages/Shopcategory';
 import Cart from './pages/Cart';
 import Signup from './pages/Signup';
-import About from './pages/About'; 
+import About from './pages/About';
+import Checkout from './components/checkout/Checkout'; // Import the Checkout component
 import Footer from './components/footer/Footer';
-import ShopContextProvider from './context/ShopContext'; // Import the context provider
+import ShopContextProvider from './context/ShopContext';
 
 function App() {
   return (
     <div>
       <BrowserRouter>
-        <ShopContextProvider> {/* Wrap everything inside ShopContextProvider */}
+        <ShopContextProvider>
           <Navbar />
-          
           <Routes>
             <Route path='/' element={<Shop />} />
             <Route path='/Shirts' element={<Shopcategory category="Shirt" />} />
@@ -29,9 +29,10 @@ function App() {
             <Route path='/product/:productId' element={<Product />} />
             <Route path='/cart' element={<Cart />} />
             <Route path='/signin' element={<Signup />} />
-            <Route path='/about' element={<About />} /> 
-          </Routes> 
-          <Footer/>
+            <Route path='/about' element={<About />} />
+            <Route path='/checkout' element={<Checkout />} /> {/* Add the Checkout route */}
+          </Routes>
+          <Footer />
         </ShopContextProvider>
       </BrowserRouter>
     </div>

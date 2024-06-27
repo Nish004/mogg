@@ -1,28 +1,57 @@
-// ShopContextProvider.js
 import React, { createContext, useState, useEffect, useMemo } from "react";
-import axios from 'axios'; // Import axios for making HTTP requests
+import axios from 'axios';
 
 export const ShopContext = createContext(null);
 
 const ShopContextProvider = (props) => {
   const [allProducts, setAllProducts] = useState([]);
   const [cartItems, setCartItems] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Fetch all products from backend on component mount
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('http://localhost:4000/allproduct');
-        setAllProducts(response.data); // Assuming backend sends an array of products
+        setAllProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
     };
     fetchProducts();
+
+    const authToken = localStorage.getItem('auth-token');
+    if (authToken) {
+      setIsLoggedIn(true);
+      fetch('http://localhost:4000/getcart', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/form-data',
+          'auth-token': authToken,
+          'Content-Type': 'application/json',
+        },
+        body: "",
+      }).then((response) => response.json())
+        .then((data) => {
+          const filteredCartItems = {};
+          Object.keys(data).forEach((key) => {
+            if (data[key] > 0) {
+              filteredCartItems[key] = {
+                quantity: data[key],
+                size: 'default' // Provide a default size or retrieve size data if available
+              };
+            }
+          });
+          setCartItems(filteredCartItems);
+        });
+    }
   }, []);
 
-  // Function to add a product to the cart
   const addToCart = (itemId, selectedSize) => {
+    if (!isLoggedIn) {
+      alert("Please log in to add items to your cart.");
+      return;
+    }
+
     setCartItems((prev) => ({
       ...prev,
       [itemId]: {
@@ -30,9 +59,20 @@ const ShopContextProvider = (props) => {
         size: selectedSize,
       },
     }));
+
+    fetch('http://localhost:4000/addtocart', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/form-data',
+        'auth-token': `${localStorage.getItem('auth-token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ "itemId": itemId }),
+    }).then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch(error => console.error('Error adding to cart:', error));
   };
 
-  // Function to remove a product from the cart
   const removeFromCart = (itemId) => {
     if (cartItems[itemId]?.quantity > 0) {
       setCartItems((prev) => ({
@@ -43,9 +83,20 @@ const ShopContextProvider = (props) => {
         },
       }));
     }
+
+    fetch('http://localhost:4000/removefromcart', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/form-data',
+        'auth-token': `${localStorage.getItem('auth-token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ "itemId": itemId }),
+    }).then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch(error => console.error('Error removing from cart:', error));
   };
 
-  // Memoize total items in cart to optimize performance
   const totalItemsInCart = useMemo(
     () =>
       Object.values(cartItems).reduce((total, item) => total + item.quantity, 0),
@@ -58,6 +109,7 @@ const ShopContextProvider = (props) => {
     addToCart,
     removeFromCart,
     totalItemsInCart,
+    isLoggedIn, // Pass the isLoggedIn state
   };
 
   return (

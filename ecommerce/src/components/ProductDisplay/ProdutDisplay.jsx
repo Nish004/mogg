@@ -2,16 +2,15 @@ import React, { useContext, useState, useEffect } from 'react';
 import './ProductDisplay.css';
 import star_icon from "../Assets/star_icon.png";
 import star_dull_icon from "../Assets/star_dull_icon.png";
-import tick_icon from "../Assets/tick_icon.png";
 import { ShopContext } from '../../context/ShopContext';
 
-const ProdutDisplay = ({ product }) => {
+const ProductDisplay = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("");
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [showCartConfirmation, setShowCartConfirmation] = useState(false);
   const [wishlistMessage, setWishlistMessage] = useState("");
-  const { addToCart } = useContext(ShopContext);
+  const { addToCart, isLoggedIn } = useContext(ShopContext);
 
   const handleQuantityChange = (e) => {
     const value = parseInt(e.target.value, 10);
@@ -19,10 +18,16 @@ const ProdutDisplay = ({ product }) => {
   };
 
   const handleAddToCart = () => {
+    if (!isLoggedIn) {
+      alert("Please log in to add items to your cart.");
+      return;
+    }
+
     if (!selectedSize) {
       alert("Please select a size");
       return;
     }
+
     console.log(`Add to Cart: Product ${product.name}, Quantity ${quantity}, Size ${selectedSize}`);
     addToCart(product.id, selectedSize);
     setShowCartConfirmation(true);
@@ -30,7 +35,7 @@ const ProdutDisplay = ({ product }) => {
       setShowCartConfirmation(false);
     }, 800);
   };
-  
+
   const handleToggleWishlist = () => {
     const newWishlistState = !isInWishlist;
     setIsInWishlist(newWishlistState);
@@ -114,26 +119,26 @@ const ProdutDisplay = ({ product }) => {
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                fill={isInWishlist ? "#e60023" : "none"}
-                stroke={isInWishlist ? "#e60023" : "currentColor"}
+                fill={isInWishlist ? "red" : "none"}
+                stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 className="feather feather-heart"
               >
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                <path d="M20.8 4.6c-1.5-1.5-3.9-1.5-5.4 0L12 8 8.6 4.6C7.1 3.1 4.7 3.1 3.2 4.6c-1.5 1.5-1.5 3.9 0 5.4l3.4 3.4 4.4 4.4 4.4-4.4 3.4-3.4c1.5-1.5 1.5-3.9 0-5.4z"></path>
               </svg>
             </button>
           </div>
           {showCartConfirmation && (
-            <div className="confirmation-message">
-              <img src={tick_icon} alt="Tick" className="tick-icon" />
-              <span>Added to Cart</span>
+            <div className="cart-confirmation">
+              
+              <p>Added to Cart</p>
             </div>
           )}
           {wishlistMessage && (
-            <div className="confirmation-message">
-              <span className='wish'>{wishlistMessage}</span>
+            <div className="wishlist-confirmation">
+              <p>{wishlistMessage}</p>
             </div>
           )}
         </div>
@@ -142,4 +147,4 @@ const ProdutDisplay = ({ product }) => {
   );
 };
 
-export default ProdutDisplay;
+export default ProductDisplay;
