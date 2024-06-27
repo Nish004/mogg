@@ -9,6 +9,8 @@ import Cart from './pages/Cart';
 import Signup from './pages/Signup';
 import About from './pages/About';
 import Checkout from './components/checkout/Checkout'; // Import the Checkout component
+import Payment from './components/checkout/payment'; // Import the Payment component
+import Confirm from './components/checkout/confrim'; // Import the Confirm component
 import Footer from './components/footer/Footer';
 import ShopContextProvider from './context/ShopContext';
 
@@ -31,6 +33,8 @@ function App() {
             <Route path='/signin' element={<Signup />} />
             <Route path='/about' element={<About />} />
             <Route path='/checkout' element={<Checkout />} /> {/* Add the Checkout route */}
+            <Route path='/payment' element={<Payment />} /> {/* Add the Payment route */}
+            <Route path='/confirm' element={<Confirm />} /> {/* Add the Confirm route */}
           </Routes>
           <Footer />
         </ShopContextProvider>

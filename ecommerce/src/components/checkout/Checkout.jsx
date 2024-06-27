@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import './Checkout.css'; // Import your CSS file for Checkout styling
 import { ShopContext } from '../../context/ShopContext';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const Checkout = () => {
   const { cartItems, allProducts, totalItemsInCart } = useContext(ShopContext);
@@ -14,6 +14,7 @@ const Checkout = () => {
     postalCode: '',
     country: '',
   });
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,7 +25,8 @@ const Checkout = () => {
     e.preventDefault();
     // Handle form submission logic here, e.g., sending data to backend
     console.log('Delivery Address:', deliveryAddress);
-    // Redirect to order confirmation page or further processing
+    // Redirect to payment page
+    navigate('/payment'); // Redirect to the payment page
   };
 
   const getTotalCartAmount = () => {
